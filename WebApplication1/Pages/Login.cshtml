@@ -1,0 +1,25 @@
+﻿@page
+@model WebApplication1.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+    <div class="main">
+        <form method="post">
+            <div asp-validation-summary="All"></div>
+            <div>
+                <input type="text" asp-for="Input.Login" placeholder="Login" />
+                <span asp-validation-for="Input.Login" />
+            </div>
+            <div>
+                <input type="password" asp-for="Input.Password" placeholder="Password" />
+                <span asp-validation-for="Input.Password" />
+            </div>
+            <input class="button" type="submit" value="Login" />
+            <a href="/Register"><div>Register</div></a>
+        </form>
+    </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

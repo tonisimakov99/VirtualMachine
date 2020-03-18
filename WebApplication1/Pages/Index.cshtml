@@ -1,0 +1,58 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@model WebApplication1.Pages.IndexModel
+
+<div class="main">
+    <form method="post" class="form" id="r">
+        <div asp-validation-summary="All"></div>
+        <div>
+            <label>Pool</label>
+            <select size="1" name="Input.Pool" asp-items="Model.Pools"></select>
+        </div>
+        <div>
+            <label>Subdivision</label>
+            <select size="1" name="Input.Subdivision" asp-items="Model.Subdivisions"></select>
+        </div>
+        <div>
+            <label>VM name</label>
+            <input type="text" asp-for="Input.Name" placeholder="XXXXXXXXXX, XXXXXXXX-#, XXX" />
+            <span asp-validation-for="Input.Name" />
+        </div>
+        <div>
+            <label>RAM volume, GB:</label>
+            <Label id="ram">1</Label>
+            <input class="slider" type="range" value="1" min="1" max="@Model.provider.AvailableVolumeRAM" step="1" asp-for="Input.RAMVolume" id="ramrange">
+        </div>
+        <div>
+            <label>vCPU core count:</label>
+            <Label id="count">1</Label>
+            <input class="slider" type="range" value="1" min="1" max="@Model.provider.AvailableCountCores" step="1" asp-for="Input.CoreCount" id="countrange">
+        </div>
+        <div>
+            <label>HDD volume, GB:</label>
+            <Label id="hdd">1</Label>
+            <input class="slider" type="range" value="1" min="1" max="@Model.provider.AvailableVolumeHDD" step="1" asp-for="Input.HDDVolume"id="hddrange">
+        </div>
+        <input class="button" type="submit" value="Send" />
+    </form>
+    <a href="/Logout"><div>Logout</div></a>
+</div>
+
+@if (Model.IsAlert)
+{
+<script>alert("Request created");</script>
+}
+
+<script>
+    var ramrange = document.getElementById("ramrange");
+    ramrange.oninput = () => { document.getElementById("ram").textContent = ramrange.value; };
+     var hddrange = document.getElementById("hddrange");
+    hddrange.oninput = () => { document.getElementById("hdd").textContent = hddrange.value; };
+     var countrange = document.getElementById("countrange");
+    countrange.oninput = () => { document.getElementById("count").textContent = countrange.value;  };
+
+    </script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
